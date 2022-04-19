@@ -1,9 +1,8 @@
-package main.java;
-
 //This code was taken from the library given from UWS's module Structures and Algorithms
 //It has been modified to not need an Interface which it does as it was given
-//This tree could have been modified to only accept Game objects but it was decided to leave as is for a smoother
-//development process
+//This tree could have been modified to only accept Game objects, but it was decided to leave as is for a smoother
+//development process.
+
 public class BinarySearchTree {
 
     private class BinarySearchTreeNode {
@@ -55,14 +54,14 @@ public class BinarySearchTree {
     public String getTraversals() {
         String traversalsDetails = new String();
         if (this.root != null) {
-            traversalsDetails += "in order\n";
+            //traversalsDetails += "in order\n";
             traversalsDetails += this.getInOrder(this.root) + "\n";
-            traversalsDetails += "pre order\n";
-            traversalsDetails += this.getPreOrder(this.root) + "\n";
-            traversalsDetails += "post order\n";
-            traversalsDetails += this.getPostOrder(this.root) + "\n";
-            traversalsDetails += "reverse order\n";
-            traversalsDetails += this.getReverseOrder(this.root) + "\n";
+            //traversalsDetails += "pre order\n";
+            //traversalsDetails += this.getPreOrder(this.root) + "\n";
+            //traversalsDetails += "post order\n";
+            //traversalsDetails += this.getPostOrder(this.root) + "\n";
+            //traversalsDetails += "reverse order\n";
+           // traversalsDetails += this.getReverseOrder(this.root) + "\n";
         } else {
             traversalsDetails += "tree is empty";
         }

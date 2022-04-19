@@ -1,4 +1,4 @@
-package main.java;
+//A Game class here to handle all operations for each Game that will be added into the Binary Search Tree.
 
 //Game class for all games to be used in the program
 public class Game implements Comparable<Game>{

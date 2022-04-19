@@ -1,4 +1,6 @@
-package main.java;
+//main.java file which runs the main method. The main menu is here allowing users to interact with the software
+//and to make all the relevant choices to fulfill all requirements of this prototype. java.io.FileNotFoundException is
+//imported to handle any exceptions where the file cannot be found when registering or logging in.
 
 import java.io.FileNotFoundException;
 
@@ -25,7 +27,13 @@ public class main {
                     Boolean adminLoggedIn = false;
                     Administrator admin = new Administrator();
 
-                    adminLoggedIn = admin.adminLogin();
+                    String adminLoginUsername;
+                    String adminLoginPassword;
+
+                    adminLoginUsername = Input.getString("Please enter your username: ");
+                    adminLoginPassword = Input.getString("Please enter your password");
+
+                    adminLoggedIn = admin.adminLogin(adminLoginUsername, adminLoginPassword);
                     if(adminLoggedIn)
                         System.out.println("Successfully logged in\n");
                     else
@@ -36,7 +44,7 @@ public class main {
                     if(adminLoggedIn){
                         String adminChoice;
                         do{
-                            System.out.println("0. Quit");
+                            System.out.println("0. Return to main menu");
                             System.out.println("1. Add A Game");
                             adminChoice = Input.getString("Please choose: ");
 
@@ -70,17 +78,30 @@ public class main {
                     Boolean userLoggedIn = false;
                     PublicUser user = new PublicUser();
 
-                    userLoggedIn = user.login();
+                    String userLoginUsername;
+                    String userLoginPassword;
+
+                    userLoginUsername = Input.getString("Please enter your username: ").toLowerCase();
+                    userLoginPassword = Input.getString("Please enter your password");
+
+                    userLoggedIn = user.login(userLoginUsername, userLoginPassword);
                     if (userLoggedIn)
                         System.out.println("Successfully logged in\n");
                     else
-                        System.out.println("Unable to login, either the username or password was \n");
+                        System.out.println("Unable to login, either the username or password was incorrect\n");
 
                     break;
                 case "3":
                     PublicUser newUser = new PublicUser();
+
+                    String userRegisterUsername;
+                    String userRegisterPassword;
+
+                    userRegisterUsername = Input.getString("Please register your username: ").toLowerCase();
+                    userRegisterPassword = Input.getString("Please register your password");
+
                     //Calling the register method create a new user
-                    newUser.register();
+                    newUser.register(userRegisterUsername, userRegisterPassword);
 
                     break;
                 case "4":

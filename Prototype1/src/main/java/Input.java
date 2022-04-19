@@ -1,10 +1,8 @@
-package main.java;
+//This code was taken from the library given from UWS's module Structures and Algorithms
+//It defines functions to allow the program to take any kind of input from the user
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
-//This code was taken from the library given from UWS's module Structures and Algorithms
-//It defines functions to allow the program to take any kind of input from the user
 
 public class Input {
     private static BufferedReader input = new BufferedReader(new InputStreamReader(System.in));

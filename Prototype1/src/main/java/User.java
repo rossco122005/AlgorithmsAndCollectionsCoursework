@@ -1,6 +1,5 @@
-package main.java;
+//User superclass which both the Administrator and PublicUser classes will inherit from.
 
-//User superclass
 public class User {
     //Member variables defined here which will be inherited by the administrator and public user classes
     private String userID, username, userPassword;
