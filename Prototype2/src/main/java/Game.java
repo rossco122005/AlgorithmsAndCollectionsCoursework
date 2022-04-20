@@ -78,6 +78,7 @@ public class Game implements Comparable<Game>{
         details += "Genre: " + this.genre + "\n";
         details += "Release Year: " + this.releaseYear + "\n";
         details += "Completed: " + this.completed + "\n";
+        details += "Review: " + this.review + "\n";
 
         return details;
     }

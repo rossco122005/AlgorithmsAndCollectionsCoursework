@@ -1,1 +1,1 @@
-[{"game":{"review":null,"genre":"","completed":false,"title":"test5","releaseYear":""}},{"game":{"review":null,"genre":"","completed":false,"title":"test3","releaseYear":""}},{"game":{"review":null,"genre":"","completed":false,"title":"test7","releaseYear":""}}]
+[{"game":{"review":"Kinda shite","genre":"","completed":false,"title":"test5","releaseYear":""}},{"game":{"review":null,"genre":"","completed":false,"title":"test3","releaseYear":""}},{"game":{"review":null,"genre":"","completed":true,"title":"test7","releaseYear":""}}]

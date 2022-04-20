@@ -6,7 +6,29 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class PublicUser extends User{
-    private BinarySearchTree userGames;
+    private BinarySearchTree userGames = new BinarySearchTree();
+
+    private String username;
+    private String password;
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     //Login function here which handles logins as administrator
     public Boolean login(String username, String password) throws FileNotFoundException {
@@ -64,6 +86,28 @@ public class PublicUser extends User{
         }catch (IOException e){
             System.out.println("Unable to register, cannot write to file");
         }
+    }
+
+    public void addGameToList(Game game) throws BinarySearchTree.NotUniqueException {
+        this.userGames.insert(game);
+    }
+
+    public void completeGame(Game game) throws BinarySearchTree.NotFoundException {
+        this.userGames.find(game).setCompleted(true);
+    }
+
+    public void reviewGame(Game game, String review) throws BinarySearchTree.NotFoundException{
+        this.userGames.find(game).setReview(review);
+    }
+
+    public void removeGame(Game game) throws BinarySearchTree.NotFoundException{
+        this.userGames.remove(game);
+    }
+
+    public String viewAllGames(){
+        String details = "";
+        details += this.userGames.getTraversals();
+        return details;
     }
 
 }
