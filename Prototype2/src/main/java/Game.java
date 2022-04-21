@@ -1,5 +1,7 @@
 //A Game class here to handle all operations for each Game that will be added into the Binary Search Tree.
 
+import java.util.Locale;
+
 public class Game implements Comparable<Game>{
     //Declaring members of the Game class
     private String gameID, title, genre, releaseYear, review;
@@ -55,6 +57,7 @@ public class Game implements Comparable<Game>{
         this.title = Input.getString("Please enter the Title of the Game: ");
         this.genre = Input.getString("Please enter the Genre of the Game ");
         this.releaseYear = Input.getString("Please enter the Release Year of the Game: ");
+        this.review = "";
     }
 
     //Overriding the compareTo method for a Game to be able to compare them for the Binary Search Tree
@@ -67,6 +70,40 @@ public class Game implements Comparable<Game>{
         else if(this.title.toLowerCase().compareTo(secondGame.title.toLowerCase()) > 0)
             compareTo = 1;
 
+        return compareTo;
+    }
+
+    public int compareToGenre(Game secondGame){
+        int compareTo = 0;
+
+        if (this.genre.toLowerCase().compareTo(secondGame.genre.toLowerCase()) < 0){
+            compareTo = -1;
+        }else if(this.genre.toLowerCase().compareTo(secondGame.genre.toLowerCase()) > 0){
+            compareTo = 1;
+        }else if(this.genre.toLowerCase().compareTo(secondGame.genre.toLowerCase()) == 0){
+            if(this.title.toLowerCase().compareTo(secondGame.title.toLowerCase()) < 0){
+                compareTo = -1;
+            }else if(this.title.toLowerCase().compareTo(secondGame.title.toLowerCase()) > 0){
+                compareTo = 1;
+            }
+        }
+        return compareTo;
+    }
+
+    public int compareToReleaseYear(Game secondGame){
+        int compareTo = 0;
+
+        if (this.releaseYear.toLowerCase().compareTo(secondGame.releaseYear.toLowerCase()) < 0){
+            compareTo = -1;
+        }else if(this.releaseYear.toLowerCase().compareTo(secondGame.releaseYear.toLowerCase()) > 0){
+            compareTo = 1;
+        }else if(this.releaseYear.toLowerCase().compareTo(secondGame.releaseYear.toLowerCase()) == 0){
+            if(this.title.toLowerCase().compareTo(secondGame.title.toLowerCase()) < 0){
+                compareTo = -1;
+            }else if(this.title.toLowerCase().compareTo(secondGame.title.toLowerCase()) > 0){
+                compareTo = 1;
+            }
+        }
         return compareTo;
     }
 

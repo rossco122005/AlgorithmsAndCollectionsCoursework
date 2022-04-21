@@ -61,7 +61,7 @@ public class PublicUser extends User{
     }
 
     public void register(String username, String password) throws FileNotFoundException{
-        this.setUsername(username);
+        this.setUsername(username.toLowerCase());
         this.setPassword(password);
 
         //Try catch block here to allow for the appropriate exception
@@ -80,7 +80,7 @@ public class PublicUser extends User{
 
             //Writing to the current users.txt file the new user details
             bufferedWriter.write(this.getUsername() + "\n");
-            bufferedWriter.write(this.getUserPassword() + "\n");
+            bufferedWriter.write(this.getPassword() + "\n");
             bufferedWriter.close();
             System.out.println("Registered Successfully!");
         }catch (IOException e){
@@ -108,6 +108,14 @@ public class PublicUser extends User{
         String details = "";
         details += this.userGames.getTraversals();
         return details;
+    }
+
+    public void writeGamesToJSON(String username){
+       this.userGames.writeToJSON(username);
+    }
+
+    public void readGamesFromJSON(String username){
+        this.userGames.readFromJSON(username);
     }
 
 }

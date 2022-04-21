@@ -17,11 +17,17 @@ public class main {
         //Declaration of BST for admin to add games
         AllGamesList allGames = new AllGamesList();
 
-        allGames.gamesList.readFromJSON();
+        allGames.gamesList.readFromJSON("admin");
+
+        System.out.println("By Genre");
+        allGames.gamesList.sortByGenre();
+        System.out.println("By Release Year");
+        allGames.gamesList.sortByReleaseYear();
 
         //Do while loop for all choices a user can make
         String choice;
         do{
+            System.out.println(allGames.gamesList.countGamesInTree());
             //Main menu
             System.out.println("0. Quit");
             System.out.println("1. Admin Login");
@@ -75,7 +81,6 @@ public class main {
                                         System.out.println("Invalid choice, please try again");
 
                                     break;
-
                             }
                         }while(adminChoice.compareTo("0") != 0);
                     }
@@ -95,12 +100,15 @@ public class main {
                     userLoginPassword = Input.getString("Please enter your password");
 
                     userLoggedIn = user.login(userLoginUsername, userLoginPassword);
-                    if (userLoggedIn)
+                    if (userLoggedIn) {
                         System.out.println("Successfully logged in\n");
+                        System.out.println("Welcome " + userLoginUsername + "!");
+                        user.setUsername(userLoginUsername);
+                        user.readGamesFromJSON(user.getUsername());
+                    }
                     else
                         System.out.println("Unable to login, either the username or password was incorrect\n");
-
-                    System.out.println("Welcome " + userLoginUsername + "!");
+                    
                     if(userLoggedIn){
                         String userChoice;
                         do{
@@ -201,9 +209,10 @@ public class main {
                                         System.out.println("Could not find game, please try again");
                                     }
 
+                                    break;
                             }
-
                         }while(userChoice.compareTo("0") != 0);
+                        user.writeGamesToJSON(user.getUsername());
                     }
 
                     break;
@@ -214,10 +223,14 @@ public class main {
                     String userRegisterPassword;
 
                     userRegisterUsername = Input.getString("Please register your username: ");
-                    userRegisterPassword = Input.getString("Please register your password");
+                    userRegisterPassword = Input.getString("Please register your password: ");
 
                     //Calling the register method create a new user
                     newUser.register(userRegisterUsername, userRegisterPassword);
+
+                    newUser.setUsername(userRegisterUsername);
+
+                    newUser.writeGamesToJSON(newUser.getUsername());
 
                     break;
                 case "4":
@@ -237,6 +250,6 @@ public class main {
             }
 
         }while(choice.compareTo("0") != 0);
-        allGames.gamesList.writeToJSON();
+        allGames.gamesList.writeToJSON("admin");
     }
 }

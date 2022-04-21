@@ -21,7 +21,11 @@ public class BinarySearchTree {
     }
 
     //JSONArray variable here to handle the writing to the JSON file
-    JSONArray gameListJSON = new JSONArray();
+    private JSONArray gameListJSON = new JSONArray();
+
+    private int arraySortingCounter = 0;
+
+    private Game[] games;
 
     private BinarySearchTreeNode root;
     // set by find to allow remove to work
@@ -91,17 +95,93 @@ public class BinarySearchTree {
         return inOrderDetails;
     }
 
-    public void readFromJSON(){
-        this.readJSONToBST();
+    public int countGamesInTree(){
+        this.arraySortingCounter = 0;
+        this.countGamesInTree(this.root);
+        return this.arraySortingCounter;
     }
 
-    private void readJSONToBST(){
+    private void countGamesInTree(BinarySearchTreeNode current){
+        if (current != null) {
+            this.arraySortingCounter++;
+            this.countGamesInTree(current.left);
+            this.countGamesInTree(current.right);
+        }
+    }
+
+    public void sortByGenre(){
+        int arrayLength = countGamesInTree();
+        this.games = new Game[arrayLength];
+        this.arraySortingCounter = 0;
+        this.addGamesToArray(this.root);
+
+        //Insertion sort by genre
+        for(int i = 1; i < this.games.length; i++){
+            int j = i;
+            while ((j > 0) && (this.games[j-1].compareToGenre(this.games[j]) == 1)){
+                Game temp;
+                temp = this.games[j];
+                this.games[j] = this.games[j-1];
+                this.games[j-1] = temp;
+                j--;
+            }
+        }
+
+        for(int x = 0; x < this.games.length; x++){
+            System.out.println(this.games[x]);
+        }
+    }
+
+    public void sortByReleaseYear(){
+        int arrayLength = countGamesInTree();
+        this.games = new Game[arrayLength];
+        this.arraySortingCounter = 0;
+        this.addGamesToArray(this.root);
+
+        //Insertion sort by release year
+        for(int i = 1; i < this.games.length; i++){
+            int j = i;
+            while ((j > 0) && (this.games[j-1].compareToReleaseYear(this.games[j]) == 1)){
+                Game temp;
+                temp = this.games[j];
+                this.games[j] = this.games[j-1];
+                this.games[j-1] = temp;
+                j--;
+            }
+        }
+
+        for(int x = 0; x < this.games.length; x++){
+            System.out.println(this.games[x]);
+        }
+    }
+
+    private void addGamesToArray(BinarySearchTreeNode current){
+        if (current != null) {
+            this.games[this.arraySortingCounter] = current.object;
+            this.arraySortingCounter++;
+            this.addGamesToArray(current.left);
+            this.addGamesToArray(current.right);
+        }
+    }
+
+    public void readFromJSON(String username){
+        this.readJSONToBST(username);
+    }
+
+    private void readJSONToBST(String username){
+        String gamesJSONFileName = "";
+        if (username.compareTo("admin") == 0){
+            gamesJSONFileName = "games";
+        }else{
+            gamesJSONFileName = username;
+        }
+
         JSONParser parser = new JSONParser();
 
         try{
             Path currentRelativePath = Paths.get("");
             String s = currentRelativePath.toAbsolutePath().toString();
-            FileReader reader = new FileReader(s + "\\games.json");
+            FileReader reader = new FileReader(s + "\\" + gamesJSONFileName + ".json");
 
             Object obj = parser.parse(reader);
             JSONArray gameList = (JSONArray) obj;
@@ -126,9 +206,9 @@ public class BinarySearchTree {
     }
 
     //Method here for writing the BST to a JSON file when the program is closed
-    public void writeToJSON(){
+    public void writeToJSON(String username){
         this.addGamesToJSON(this.root);
-        this.writeGamesToJSON();
+        this.writeGamesToJSON(username);
     }
 
     //Adding the games list to JSON Array in Pre Order
@@ -149,11 +229,18 @@ public class BinarySearchTree {
     }
 
     //Adding the games list to JSON file in Pre Order
-    private void writeGamesToJSON(){
+    private void writeGamesToJSON(String username){
+        String gamesJSONFileName = "";
+        if (username.compareTo("admin") == 0){
+            gamesJSONFileName = "games";
+        }else{
+            gamesJSONFileName = username;
+        }
+
         try{
             Path currentRelativePath = Paths.get("");
             String s = currentRelativePath.toAbsolutePath().toString();
-            File file = new File(s + "\\games.json");
+            File file = new File(s + "\\" + gamesJSONFileName + ".json");
 
             //PrintWriter used here to clear the JSON file for the new list of Games
             PrintWriter printWriter = new PrintWriter(file);
