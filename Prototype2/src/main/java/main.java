@@ -2,15 +2,7 @@
 //and to make all the relevant choices to fulfill all requirements of this prototype. java.io.FileNotFoundException is
 //imported to handle any exceptions where the file cannot be found when registering or logging in.
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import java.io.*;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class main {
     public static void main(String[] args) throws FileNotFoundException {
@@ -19,15 +11,9 @@ public class main {
 
         allGames.gamesList.readFromJSON("admin");
 
-        System.out.println("By Genre");
-        allGames.gamesList.sortByGenre();
-        System.out.println("By Release Year");
-        allGames.gamesList.sortByReleaseYear();
-
         //Do while loop for all choices a user can make
         String choice;
         do{
-            System.out.println(allGames.gamesList.countGamesInTree());
             //Main menu
             System.out.println("0. Quit");
             System.out.println("1. Admin Login");
@@ -47,7 +33,7 @@ public class main {
                     String adminLoginPassword;
 
                     adminLoginUsername = Input.getString("Please enter your username: ");
-                    adminLoginPassword = Input.getString("Please enter your password");
+                    adminLoginPassword = Input.getString("Please enter your password: ");
 
                     adminLoggedIn = admin.adminLogin(adminLoginUsername, adminLoginPassword);
                     if(adminLoggedIn)
@@ -97,7 +83,7 @@ public class main {
                     String userLoginPassword;
 
                     userLoginUsername = Input.getString("Please enter your username: ");
-                    userLoginPassword = Input.getString("Please enter your password");
+                    userLoginPassword = Input.getString("Please enter your password: ");
 
                     userLoggedIn = user.login(userLoginUsername, userLoginPassword);
                     if (userLoggedIn) {
@@ -108,7 +94,7 @@ public class main {
                     }
                     else
                         System.out.println("Unable to login, either the username or password was incorrect\n");
-                    
+
                     if(userLoggedIn){
                         String userChoice;
                         do{
@@ -122,23 +108,85 @@ public class main {
 
                             switch(userChoice){
                                 case "1":
-                                    System.out.println("-----Main Games List-----");
-                                    System.out.println(allGames.gamesList.getTraversals());
+                                    String sortChoice;
+                                    do{
+                                        System.out.println("How would you like to sort the main games list?");
+                                        System.out.println("0. Return to your menu");
+                                        System.out.println("1. By Title");
+                                        System.out.println("2. By Genre");
+                                        System.out.println("3. By Release Year");
+                                        sortChoice = Input.getString("Please choose: ");
 
-                                    String gameToAdd;
-                                    gameToAdd = Input.getString("Please enter the title of the game you'd like to add to your list: ");
-                                    Game gameToBeFound = new Game();
-                                    gameToBeFound.setTitle(gameToAdd);
+                                        switch(sortChoice){
+                                            case "1":
+                                                System.out.println("-----Main Games List-----");
+                                                allGames.gamesList.sortByTitle();
 
-                                    try{
-                                        gameToBeFound = allGames.gamesList.find(gameToBeFound);
-                                        user.addGameToList(gameToBeFound);
-                                        System.out.println("Game added successfully to your list!");
-                                    }catch (BinarySearchTree.NotFoundException e){
-                                        System.out.println("Could not find game, please try again");
-                                    }catch(BinarySearchTree.NotUniqueException f){
-                                        System.out.println("Game is already in your list");
-                                    }
+                                                String gameToAddByTitle;
+                                                gameToAddByTitle = Input.getString("Please enter the title of the game you'd like to add to your list: ");
+                                                Game gameToBeFoundByTitle = new Game();
+                                                gameToBeFoundByTitle.setTitle(gameToAddByTitle);
+
+                                                try{
+                                                    gameToBeFoundByTitle = allGames.gamesList.find(gameToBeFoundByTitle);
+                                                    user.addGameToList(gameToBeFoundByTitle);
+                                                    System.out.println("Game added successfully to your list!");
+                                                }catch (BinarySearchTree.NotFoundException e){
+                                                    System.out.println("Could not find game, please try again");
+                                                }catch(BinarySearchTree.NotUniqueException f){
+                                                    System.out.println("Game is already in your list");
+                                                }
+
+                                                break;
+                                            case "2":
+                                                System.out.println("-----Main Games List-----");
+                                                allGames.gamesList.sortByGenre();
+
+                                                String gameToAddByGenre;
+                                                gameToAddByGenre = Input.getString("Please enter the title of the game you'd like to add to your list: ");
+                                                Game gameToBeFoundByGenre = new Game();
+                                                gameToBeFoundByGenre.setTitle(gameToAddByGenre);
+
+                                                try{
+                                                    gameToBeFoundByGenre = allGames.gamesList.find(gameToBeFoundByGenre);
+                                                    user.addGameToList(gameToBeFoundByGenre);
+                                                    System.out.println("Game added successfully to your list!");
+                                                }catch (BinarySearchTree.NotFoundException e){
+                                                    System.out.println("Could not find game, please try again");
+                                                }catch(BinarySearchTree.NotUniqueException f){
+                                                    System.out.println("Game is already in your list");
+                                                }
+
+                                                break;
+                                            case "3":
+                                                System.out.println("-----Main Games List-----");
+                                                allGames.gamesList.sortByReleaseYear();
+
+                                                String gameToAddByReleaseYear;
+                                                gameToAddByReleaseYear = Input.getString("Please enter the title of the game you'd like to add to your list: ");
+                                                Game gameToBeFoundByReleaseYear = new Game();
+                                                gameToBeFoundByReleaseYear.setTitle(gameToAddByReleaseYear);
+
+                                                try{
+                                                    gameToBeFoundByReleaseYear = allGames.gamesList.find(gameToBeFoundByReleaseYear);
+                                                    user.addGameToList(gameToBeFoundByReleaseYear);
+                                                    System.out.println("Game added successfully to your list!");
+                                                }catch (BinarySearchTree.NotFoundException e){
+                                                    System.out.println("Could not find game, please try again");
+                                                }catch(BinarySearchTree.NotUniqueException f){
+                                                    System.out.println("Game is already in your list");
+                                                }
+
+                                                break;
+                                            default:
+                                                if(sortChoice.compareTo("0") == 0)
+                                                    System.out.println("Returning to main menu...");
+                                                else
+                                                    System.out.println("Invalid choice, please try again");
+
+                                                break;
+                                        }
+                                    }while(sortChoice.compareTo("0") != 0);
 
                                     break;
 
@@ -147,7 +195,7 @@ public class main {
                                     System.out.println(user.viewAllGames());
 
                                     String completeTitle;
-                                    completeTitle = Input.getString("Please enter the title of the game you'd like to mark as Complete");
+                                    completeTitle = Input.getString("Please enter the title of the game you'd like to mark as Complete: ");
                                     Game gameToBeCompleted = new Game();
                                     gameToBeCompleted.setTitle(completeTitle);
 
@@ -165,13 +213,13 @@ public class main {
                                     System.out.println(user.viewAllGames());
 
                                     String reviewTitle;
-                                    reviewTitle = Input.getString("Please enter the title of the game you'd like to review");
+                                    reviewTitle = Input.getString("Please enter the title of the game you'd like to review: ");
                                     Game gameToBeReviewed = new Game();
                                     gameToBeReviewed.setTitle(reviewTitle);
 
                                     try{
                                         String review;
-                                        review = Input.getString("Please write your review:");
+                                        review = Input.getString("Please write your review: ");
                                         user.reviewGame(gameToBeReviewed, review);
                                         System.out.println("Game successfully reviewed!");
                                     }catch(BinarySearchTree.NotFoundException e){
@@ -198,7 +246,7 @@ public class main {
                                     System.out.println(user.viewAllGames());
 
                                     String removeTitle;
-                                    removeTitle = Input.getString("Please enter the title of the game you'd like to review");
+                                    removeTitle = Input.getString("Please enter the title of the game you'd like to review: ");
                                     Game gameToBeRemoved = new Game();
                                     gameToBeRemoved.setTitle(removeTitle);
 
@@ -230,6 +278,7 @@ public class main {
 
                     newUser.setUsername(userRegisterUsername);
 
+                    //Creating JSON file for new user so it can be read, even if empty
                     newUser.writeGamesToJSON(newUser.getUsername());
 
                     break;

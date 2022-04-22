@@ -1,4 +1,5 @@
-//A Game class here to handle all operations for each Game that will be added into the Binary Search Tree.
+//A Game class here to handle all operations for each Game that will be added into the Binary Search Tree. Custom
+//compareTo methods by title, genre and release year have added to allow for sorting by these attributes
 
 import java.util.Locale;
 

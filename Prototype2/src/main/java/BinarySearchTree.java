@@ -1,7 +1,9 @@
 //This code was taken from the library given from UWS's module Structures and Algorithms
 //It has been modified to not need an Interface which it does as it was given
 //In this 2nd iteration of the prototypes, it was decided to modify the tree to only handle Game objects
-//This is to account for the tree being able to add the games list to a JSON file using the Pre Order traversal
+//This is to account for the tree being able to add the games list to a JSON file using the Pre Order traversal.
+//Methods have been added to count the games inside the tree and add them to an array, this will allow sorting of the
+//array with the selection sort algorithm.
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -95,6 +97,7 @@ public class BinarySearchTree {
         return inOrderDetails;
     }
 
+    //Method for counting the amount of games in the tree
     public int countGamesInTree(){
         this.arraySortingCounter = 0;
         this.countGamesInTree(this.root);
@@ -109,6 +112,31 @@ public class BinarySearchTree {
         }
     }
 
+    //Method for sorting by title
+    public void sortByTitle(){
+        int arrayLength = countGamesInTree();
+        this.games = new Game[arrayLength];
+        this.arraySortingCounter = 0;
+        this.addGamesToArray(this.root);
+
+        //Insertion sort by title
+        for(int i = 1; i < this.games.length; i++){
+            int j = i;
+            while ((j > 0) && (this.games[j-1].compareTo(this.games[j]) > 0)){
+                Game temp;
+                temp = this.games[j];
+                this.games[j] = this.games[j-1];
+                this.games[j-1] = temp;
+                j--;
+            }
+        }
+
+        for(int x = 0; x < this.games.length; x++){
+            System.out.println(this.games[x]);
+        }
+    }
+
+    //Method for sorting by genre
     public void sortByGenre(){
         int arrayLength = countGamesInTree();
         this.games = new Game[arrayLength];
@@ -118,7 +146,7 @@ public class BinarySearchTree {
         //Insertion sort by genre
         for(int i = 1; i < this.games.length; i++){
             int j = i;
-            while ((j > 0) && (this.games[j-1].compareToGenre(this.games[j]) == 1)){
+            while ((j > 0) && (this.games[j-1].compareToGenre(this.games[j]) > 0)){
                 Game temp;
                 temp = this.games[j];
                 this.games[j] = this.games[j-1];
@@ -132,6 +160,7 @@ public class BinarySearchTree {
         }
     }
 
+    //Method for sorting by release year
     public void sortByReleaseYear(){
         int arrayLength = countGamesInTree();
         this.games = new Game[arrayLength];
@@ -141,7 +170,7 @@ public class BinarySearchTree {
         //Insertion sort by release year
         for(int i = 1; i < this.games.length; i++){
             int j = i;
-            while ((j > 0) && (this.games[j-1].compareToReleaseYear(this.games[j]) == 1)){
+            while ((j > 0) && (this.games[j-1].compareToReleaseYear(this.games[j]) > 0)){
                 Game temp;
                 temp = this.games[j];
                 this.games[j] = this.games[j-1];
@@ -155,6 +184,7 @@ public class BinarySearchTree {
         }
     }
 
+    //Method to add games to the array to be sorted
     private void addGamesToArray(BinarySearchTreeNode current){
         if (current != null) {
             this.games[this.arraySortingCounter] = current.object;
@@ -164,6 +194,7 @@ public class BinarySearchTree {
         }
     }
 
+    //Method for reading the games from JSON and adding them back into the tree
     public void readFromJSON(String username){
         this.readJSONToBST(username);
     }
