@@ -23,7 +23,7 @@ public class Administrator extends User{
             File file = new File(s + "\\admins.txt");
             Scanner scan = new Scanner(file);
 
-            //A while loop here which has the condition of the file having files. While it does it searches through
+            //A while loop here which has the condition of the file having files. While it does, it searches through
             //for the relative username and password and checks if the details entered are valid
             while (scan.hasNext()){
                 String current = scan.nextLine();

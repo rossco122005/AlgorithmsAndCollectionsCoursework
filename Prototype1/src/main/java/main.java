@@ -97,7 +97,7 @@ public class main {
                     String userRegisterUsername;
                     String userRegisterPassword;
 
-                    userRegisterUsername = Input.getString("Please register your username: ").toLowerCase();
+                    userRegisterUsername = Input.getString("Please register your username: ");
                     userRegisterPassword = Input.getString("Please register your password");
 
                     //Calling the register method create a new user
