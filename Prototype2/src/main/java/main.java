@@ -2,7 +2,7 @@
 //and to make all the relevant choices to fulfill all requirements of this prototype. java.io.FileNotFoundException is
 //imported to handle any exceptions where the file cannot be found when registering or logging in.
 
-import java.io.*;
+import java.io.FileNotFoundException;
 
 public class main {
     public static void main(String[] args) throws FileNotFoundException {
@@ -10,6 +10,8 @@ public class main {
         AllGamesList allGames = new AllGamesList();
 
         allGames.gamesList.readFromJSON("admin");
+
+        System.out.println(allGames.gamesList.getTraversals());
 
         //Do while loop for all choices a user can make
         String choice;
@@ -74,7 +76,7 @@ public class main {
                     break;
                 case "2":
                     System.out.println("-----User Login-----");
-                    //Use of booelan here to allow an if statement to check if the USer logged in successfully
+                    //Use of booelan here to allow an if statement to check if the User logged in successfully
                     //This will be expanded upon in later prototypes
                     Boolean userLoggedIn = false;
                     PublicUser user = new PublicUser();
@@ -192,7 +194,7 @@ public class main {
 
                                 case "2":
                                     System.out.println("-----All your games-----");
-                                    System.out.println(user.viewAllGames());
+                                    user.viewAllGames();
 
                                     String completeTitle;
                                     completeTitle = Input.getString("Please enter the title of the game you'd like to mark as Complete: ");
@@ -210,7 +212,7 @@ public class main {
 
                                 case "3":
                                     System.out.println("-----All your games-----");
-                                    System.out.println(user.viewAllGames());
+                                    user.viewAllGames();
 
                                     String reviewTitle;
                                     reviewTitle = Input.getString("Please enter the title of the game you'd like to review: ");
@@ -230,7 +232,7 @@ public class main {
 
                                 case "4":
                                     System.out.println("-----All your games-----");
-                                    System.out.println(user.viewAllGames());
+                                    user.viewAllGames();
                                     break;
 
                                 default:
@@ -243,7 +245,7 @@ public class main {
 
                                 case "5":
                                     System.out.println("-----All your games-----");
-                                    System.out.println(user.viewAllGames());
+                                    user.viewAllGames();
 
                                     String removeTitle;
                                     removeTitle = Input.getString("Please enter the title of the game you'd like to review: ");
@@ -285,7 +287,7 @@ public class main {
                 case "4":
                     System.out.println("-----View All Games-----");
                     //Calling the getTraversals method here to display all the traversals of the binary search tree
-                    System.out.println(allGames.gamesList.getTraversals());
+                    allGames.gamesList.sortByTitle();
 
                     break;
                 default:

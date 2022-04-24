@@ -73,9 +73,9 @@ public class BinarySearchTree {
         String traversalsDetails = new String();
         if (this.root != null) {
             //traversalsDetails += "in order\n";
-            traversalsDetails += this.getInOrder(this.root) + "\n";
-            //traversalsDetails += "pre order\n";
-            //traversalsDetails += this.getPreOrder(this.root) + "\n";
+            //traversalsDetails += this.getInOrder(this.root) + "\n";
+            traversalsDetails += "pre order\n";
+            traversalsDetails += this.getPreOrder(this.root) + "\n";
             //traversalsDetails += "post order\n";
             //traversalsDetails += this.getPostOrder(this.root) + "\n";
             //traversalsDetails += "reverse order\n";

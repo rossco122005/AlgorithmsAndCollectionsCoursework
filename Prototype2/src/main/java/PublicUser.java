@@ -104,10 +104,8 @@ public class PublicUser extends User{
         this.userGames.remove(game);
     }
 
-    public String viewAllGames(){
-        String details = "";
-        details += this.userGames.getTraversals();
-        return details;
+    public void viewAllGames(){
+        this.userGames.sortByTitle();
     }
 
     public void writeGamesToJSON(String username){
