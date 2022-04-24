@@ -11,8 +11,6 @@ public class main {
 
         allGames.gamesList.readFromJSON("admin");
 
-        System.out.println(allGames.gamesList.getTraversals());
-
         //Do while loop for all choices a user can make
         String choice;
         do{
